@@ -90,30 +90,39 @@ export const useNotes = (category) => {
           ? new Date(n.created_at).toLocaleDateString("id-ID")
           : "-";
         return `
-          <div style="margin-bottom: 20px;">
-            <h3 style="margin: 0 0 5px 0;">Judul: ${n.title}</h3>
-            <p style="margin: 0 0 15px 0;"><strong>Tanggal:</strong> ${date}</p>
-            <div>${n.body || n.content || ""}</div>
-            <hr style="margin-top: 20px;"/>
-          </div>
-        `;
+        <div style="margin-bottom: 30px;">
+          <h2 style="margin: 0 0 5px 0; color: #44403c;">${n.title}</h2>
+          <p style="margin: 0 0 15px 0; font-size: 12px; color: #78716c;"><strong>Tanggal:</strong> ${date}</p>
+          <div style="color: #57534e; line-height: 1.6;">${n.body || n.content || ""}</div>
+          <hr style="margin-top: 20px; border: 1px solid #e7e5e4;"/>
+        </div>
+      `;
       })
       .join("");
 
     const htmlString = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            p { margin: 0 0 5px 0; }
-            ul, ol { margin: 0 0 5px 0; }
-            li { margin-bottom: 2px; }
-          </style>
-        </head>
-        <body>${contentHTML}</body>
-      </html>
-    `;
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: sans-serif; color: #57534e; font-size: 11pt; }
+          h1 { font-size: 16pt; font-weight: bold; margin-bottom: 10px; }
+          h2 { font-size: 14pt; font-weight: bold; margin-bottom: 10px; }
+          p { margin: 0 0 10px 0; }
+          ul { margin: 0 0 10px 20px; list-style-type: disc; }
+          ol { margin: 0 0 10px 20px; list-style-type: decimal; }
+          li { margin-bottom: 5px; }
+          .ql-align-center { text-align: center; }
+          .ql-align-right { text-align: right; }
+          .ql-align-justify { text-align: justify; }
+          s { text-decoration: line-through; }
+          u { text-decoration: underline; }
+        </style>
+      </head>
+      <body>${contentHTML}</body>
+    </html>
+  `;
 
     const converted = await asBlob(htmlString);
     saveAs(converted, `Catatan_${category}.docx`);

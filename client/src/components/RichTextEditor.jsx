@@ -1,4 +1,3 @@
-// src/components/RichTextEditor.jsx
 import { useMemo, useEffect } from "react";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
@@ -47,7 +46,7 @@ export const RichTextEditor = ({
   }, [value, quill]);
 
   return (
-    <div className="w-full rounded-xl overflow-hidden border border-stone-200 bg-[#FAF8F5] focus-within:border-amber-500 focus-within:ring-1 focus-within:ring-amber-500 transition-all">
+    <div className="w-full rounded-xl overflow-hidden border border-stone-200 bg-[#FAF8F5] focus-within:border-amber-500 focus-within:ring-1 focus-within:ring-amber-500 transition-all text-sm sm:text-base text-stone-600">
       <div
         ref={quillRef}
         className="min-h-[160px] max-h-[300px] overflow-y-auto"
