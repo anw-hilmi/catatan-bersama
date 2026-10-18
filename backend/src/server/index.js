@@ -9,13 +9,11 @@ const createServer = () => {
   app.use(cors());
   app.use(express.json());
 
-  // Tambahkan baris ini
   app.get("/", (req, res) => {
-    res.send("Server berjalan!");
+    res.send("Server Catatan Bersama berjalan!");
   });
 
   app.use("/api", routes);
-
   app.use(errorMiddleware);
 
   return app;
