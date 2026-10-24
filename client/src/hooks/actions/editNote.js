@@ -4,9 +4,22 @@ export const startEdit = (item, setActionConfig, setIsEditorOpen) => {
 };
 
 export const processEdit = async (credentials, actionConfig, updateNote) => {
-  return await updateNote(actionConfig.payload.id, {
+  const { payload, pendingData } = actionConfig; // payload = item (id)
+
+  // Jika pendingData adalah FormData (Upload PDF)
+  if (pendingData instanceof FormData) {
+    if (!pendingData.has("username")) {
+      pendingData.append("username", credentials.username);
+    }
+    if (!pendingData.has("password")) {
+      pendingData.append("password", credentials.password);
+    }
+    return await updateNote(payload.id, pendingData);
+  }
+
+  // Fallback jika berupa objek JSON biasa
+  return await updateNote(payload.id, {
     ...credentials,
-    title: actionConfig.pendingData.title,
-    body: actionConfig.pendingData.content,
+    ...pendingData,
   });
 };

@@ -18,7 +18,6 @@ export const useNoteActions = ({
     pendingData: null,
   });
 
-  // Panggil fungsi dari file terpisah
   const handleStartAdd = () => startAdd(setActionConfig, setIsEditorOpen);
   const handleStartEdit = (item) =>
     startEdit(item, setActionConfig, setIsEditorOpen);
@@ -33,10 +32,28 @@ export const useNoteActions = ({
 
   const handleLoginSuccess = async (credentials) => {
     let res;
+    let finalPayload = actionConfig.pendingData;
+
+    if (finalPayload instanceof FormData) {
+      finalPayload.set("username", String(credentials.username));
+      finalPayload.set("password", String(credentials.password));
+    } else if (typeof finalPayload === "object" && finalPayload !== null) {
+      // Hapus 'content' secara imutabel dengan destructuring
+      const { content, body, ...restPayload } = finalPayload;
+      finalPayload = {
+        ...restPayload,
+        body: body || content || "",
+        username: String(credentials.username),
+        password: String(credentials.password),
+      };
+    }
+
+    const currentConfig = { ...actionConfig, pendingData: finalPayload };
+
     if (actionConfig.type === "ADD")
-      res = await processAdd(credentials, actionConfig, createNote);
+      res = await processAdd(credentials, currentConfig, createNote);
     else if (actionConfig.type === "EDIT")
-      res = await processEdit(credentials, actionConfig, updateNote);
+      res = await processEdit(credentials, currentConfig, updateNote);
     else if (actionConfig.type === "DELETE")
       res = await processDelete(credentials, actionConfig, deleteNote);
 

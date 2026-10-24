@@ -6,7 +6,6 @@ const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
 export const useNotes = (category) => {
-  // Read initial data from localStorage if available
   const [notes, setNotes] = useState(() => {
     const cached = localStorage.getItem(`catatan_${category}`);
     return cached ? JSON.parse(cached) : [];
@@ -14,7 +13,6 @@ export const useNotes = (category) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Sync state to localStorage whenever notes change
   useEffect(() => {
     if (notes.length > 0) {
       localStorage.setItem(`catatan_${category}`, JSON.stringify(notes));
@@ -23,7 +21,7 @@ export const useNotes = (category) => {
 
   const fetchNotes = useCallback(
     async (search = "") => {
-      setLoading(false);
+      setLoading(true);
       setError(null);
       try {
         const res = await fetch(`${API_BASE_URL}/${category}?search=${search}`);
@@ -49,10 +47,12 @@ export const useNotes = (category) => {
   );
 
   const createNote = async (payload) => {
+    const isFormData = payload instanceof FormData;
+
     const res = await fetch(`${API_BASE_URL}/${category}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      headers: isFormData ? {} : { "Content-Type": "application/json" },
+      body: isFormData ? payload : JSON.stringify(payload),
     });
     const result = await res.json();
     if (result.status === "success") await fetchNotes();
@@ -60,10 +60,12 @@ export const useNotes = (category) => {
   };
 
   const updateNote = async (id, payload) => {
+    const isFormData = payload instanceof FormData;
+
     const res = await fetch(`${API_BASE_URL}/${category}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      headers: isFormData ? {} : { "Content-Type": "application/json" },
+      body: isFormData ? payload : JSON.stringify(payload),
     });
     const result = await res.json();
     if (result.status === "success") await fetchNotes();
@@ -89,11 +91,30 @@ export const useNotes = (category) => {
         const date = n.created_at
           ? new Date(n.created_at).toLocaleDateString("id-ID")
           : "-";
+
+        // Mengambil daftar URL PDF (baik tunggal maupun multiple)
+        const pdfList = Array.isArray(n.pdfUrls || n.files)
+          ? n.pdfUrls || n.files
+          : n.pdfUrl
+            ? [n.pdfUrl]
+            : [];
+
+        const filesListHTML =
+          pdfList.length > 0
+            ? pdfList
+                .map(
+                  (url, idx) =>
+                    `<li><a href="${url}">Unduh Lampiran PDF ${idx + 1}</a></li>`,
+                )
+                .join("")
+            : "<li><em>Tidak ada lampiran PDF</em></li>";
+
         return `
         <div style="margin-bottom: 30px;">
           <h2 style="margin: 0 0 5px 0; color: #44403c;">${n.title}</h2>
-          <p style="margin: 0 0 15px 0; font-size: 12px; color: #78716c;"><strong>Tanggal:</strong> ${date}</p>
-          <div style="color: #57534e; line-height: 1.6;">${n.body || n.content || ""}</div>
+          <p style="margin: 0 0 10px 0; font-size: 12px; color: #78716c;"><strong>Tanggal:</strong> ${date}</p>
+          <p style="margin: 0 0 5px 0; font-size: 13px;"><strong>Daftar Lampiran PDF:</strong></p>
+          <ul>${filesListHTML}</ul>
           <hr style="margin-top: 20px; border: 1px solid #e7e5e4;"/>
         </div>
       `;
@@ -111,13 +132,8 @@ export const useNotes = (category) => {
           h2 { font-size: 14pt; font-weight: bold; margin-bottom: 10px; }
           p { margin: 0 0 10px 0; }
           ul { margin: 0 0 10px 20px; list-style-type: disc; }
-          ol { margin: 0 0 10px 20px; list-style-type: decimal; }
           li { margin-bottom: 5px; }
-          .ql-align-center { text-align: center; }
-          .ql-align-right { text-align: right; }
-          .ql-align-justify { text-align: justify; }
-          s { text-decoration: line-through; }
-          u { text-decoration: underline; }
+          a { color: #2563eb; text-decoration: underline; }
         </style>
       </head>
       <body>${contentHTML}</body>
@@ -125,7 +141,7 @@ export const useNotes = (category) => {
   `;
 
     const converted = await asBlob(htmlString);
-    saveAs(converted, `Catatan_${category}.docx`);
+    saveAs(converted, `Daftar_Doa_PDF_${category}.docx`);
   };
 
   return {

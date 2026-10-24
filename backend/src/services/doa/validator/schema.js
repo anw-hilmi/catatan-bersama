@@ -4,7 +4,6 @@ export const noteSchema = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().required(),
   title: Joi.string().required(),
-  body: Joi.string().required(),
 });
 
 export const authCheckSchema = Joi.object({

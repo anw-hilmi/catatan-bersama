@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import CardItem from "../components/CardItem";
 import AddButton from "../components/AddButton";
 import DownloadButton from "../components/DownloadButton";
-import ModalEditor from "../components/ModalEditor";
+import ModalUploadPdf from "../components/ModalUploadPdf"; // <-- Ganti ke ModalUploadPdf
 import ModalLogin from "../components/ModalLogin";
 import SearchInput from "../components/SearchInput";
 import { useNotes } from "../hooks/useNotes";
@@ -30,12 +30,12 @@ export default function Doa() {
     setExpandedId,
     isEditorOpen,
     isLoginOpen,
-    actionType, // <-- Ambil actionType
+    actionType,
     editingItem,
     handleStartAdd,
     handleStartEdit,
     handleStartDelete,
-    handleEditorSubmit,
+    handleEditorSubmit, // Akan menerima FormData / { title, files }
     handleLoginSuccess,
     handleCloseEditor,
     handleCloseLogin,
@@ -58,6 +58,7 @@ export default function Doa() {
               key={item.id}
               title={item.title}
               content={item.body || item.content}
+              pdfPaths={item.pdf_paths || item.pdfUrls || []} // <-- Oper data pdf_paths dari database
               isExpanded={expandedId === item.id}
               onToggleExpand={() =>
                 setExpandedId((prev) => (prev === item.id ? null : item.id))
@@ -74,24 +75,20 @@ export default function Doa() {
         <AddButton onClick={handleStartAdd} />
       </div>
 
-      <ModalEditor
+      {/* Modal Upload PDF Baru */}
+      <ModalUploadPdf
         isOpen={isEditorOpen}
-        defaultValue={
-          editingItem && actionType === "EDIT"
-            ? {
-                title: editingItem.title,
-                content: editingItem.body || editingItem.content,
-              }
-            : { title: "", content: "" }
-        }
+        actionType={actionType}
+        editingItem={editingItem}
         onClose={handleCloseEditor}
         onSubmit={handleEditorSubmit}
       />
+
       <ModalLogin
         isOpen={isLoginOpen}
         onClose={handleCloseLogin}
         onLoginSuccess={handleLoginSuccess}
-        actionType={actionType} /* <-- Oper actionType ke Modal Login */
+        actionType={actionType}
       />
     </div>
   );

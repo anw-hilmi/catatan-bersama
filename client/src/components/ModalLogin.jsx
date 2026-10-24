@@ -5,7 +5,7 @@ export default function ModalLogin({
   isOpen,
   onClose,
   onLoginSuccess,
-  actionType, // <-- Terima prop actionType
+  actionType,
 }) {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +20,13 @@ export default function ModalLogin({
     setLoading(true);
 
     try {
-      await onLoginSuccess?.(formData);
+      // Pastikan data selalu bertipe string agar lolos validasi Joi backend
+      const payload = {
+        username: String(formData.username),
+        password: String(formData.password),
+      };
+
+      await onLoginSuccess?.(payload);
       setFormData({ username: "", password: "" });
       setShowPassword(false);
       onClose();
@@ -116,7 +122,6 @@ export default function ModalLogin({
               disabled={loading}
               className="px-5 py-2.5 text-sm font-semibold text-white bg-amber-600 hover:bg-amber-700 active:bg-amber-800 disabled:bg-amber-400 rounded-xl shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1"
             >
-              {/* Teks tombol dikendalikan oleh 1 parameter actionType */}
               {loading
                 ? "Memproses..."
                 : actionType === "DELETE"

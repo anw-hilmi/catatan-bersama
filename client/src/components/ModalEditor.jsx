@@ -1,35 +1,32 @@
 import { RichTextEditor } from "./RichTextEditor";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function ModalEditor({
   isOpen,
   onClose,
   onSubmit,
   defaultValue = {},
+  editingItem,
+  actionType = "ADD",
 }) {
+  const activeData = editingItem || defaultValue || {};
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [prevProps, setPrevProps] = useState({ isOpen: false, defaultValue });
+  const [prevProps, setPrevProps] = useState({ isOpen: false, activeData });
 
-  useEffect(() => {
+  // Reset/sync state saat render jika props berubah (bebas dari warning useEffect)
+  if (isOpen !== prevProps.isOpen || activeData !== prevProps.activeData) {
+    setPrevProps({ isOpen, activeData });
     if (isOpen) {
-      /* eslint-disable react-hooks/set-state-in-effect */
-      setTitle(defaultValue?.title || "");
-      setContent(defaultValue?.content || "");
-      setErrorMsg("");
-      /* eslint-enable react-hooks/set-state-in-effect */
-    }
-  }, [isOpen, defaultValue]);
-
-  if (isOpen !== prevProps.isOpen || defaultValue !== prevProps.defaultValue) {
-    setPrevProps({ isOpen, defaultValue });
-    if (isOpen) {
-      setTitle(defaultValue.title || "");
+      setTitle(activeData.title || "");
       setContent(
-        defaultValue.content ||
-          (typeof defaultValue === "string" ? defaultValue : ""),
+        activeData.body ||
+          activeData.content ||
+          (typeof activeData === "string" ? activeData : ""),
       );
+      setErrorMsg("");
     }
   }
 
@@ -40,11 +37,15 @@ export default function ModalEditor({
       !content || content.replace(/<[^>]*>?/gm, "").trim() === "";
 
     if (!title.trim() || isBodyEmpty) {
-      return setErrorMsg("Judul dan isi catatan tidak boleh kosong!"); // <-- Ubah di sini
+      return setErrorMsg("Judul dan isi catatan tidak boleh kosong!");
     }
 
-    setErrorMsg(""); // Kosongkan error jika sukses
-    onSubmit({ title: title.toUpperCase(), content });
+    setErrorMsg("");
+    // Kirim HANYA 'body'
+    onSubmit({
+      title: title.toUpperCase(),
+      body: content,
+    });
     setTitle("");
     setContent("");
     onClose();
@@ -52,20 +53,20 @@ export default function ModalEditor({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/40 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl border border-stone-100 space-y-5 max-h-[95vh] overflow-y-auto">
+      <div className="bg-white rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl border border-stone-100 space-y-5 max-h-[95vh] overflow-y-auto">
         <div className="border-b border-stone-100 pb-3">
           <h2 className="text-xl sm:text-2xl font-bold text-stone-800">
-            Form Catatan
+            {actionType === "EDIT" ? "Edit Catatan" : "Tambah Catatan"}
           </h2>
         </div>
 
-        <div className="space-y-5">
-          {/* Penampil Pesan Error (No 3 ditaruh di sini) */}
+        <div className="space-y-4">
           {errorMsg && (
             <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl text-center font-medium">
               {errorMsg}
             </div>
           )}
+
           <div>
             <label className="block text-sm font-semibold text-stone-700 mb-1.5">
               Judul
@@ -73,7 +74,6 @@ export default function ModalEditor({
             <input
               type="text"
               value={title}
-              // Taruh onChange di sini
               onChange={(e) => {
                 setTitle(e.target.value);
                 if (errorMsg) setErrorMsg("");
@@ -85,12 +85,9 @@ export default function ModalEditor({
 
           <div>
             <label className="block text-sm font-semibold text-stone-700 mb-1.5">
-              Konten
+              Isi Catatan
             </label>
-            {/* Wrapper tambahan agar RichTextEditor menyatu dengan tema */}
-            <div className="rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-amber-500 transition-all">
-              <RichTextEditor value={content} onChange={setContent} />
-            </div>
+            <RichTextEditor content={content} onChange={setContent} />
           </div>
         </div>
 
