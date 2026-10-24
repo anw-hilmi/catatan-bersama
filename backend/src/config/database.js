@@ -1,18 +1,22 @@
 import pg from "pg";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL tidak ditemukan pada file .env!");
+const databaseUrl = process.env.DATABASE_URL;
+
+if (!databaseUrl) {
+  throw new Error("DATABASE_URL tidak ditemukan pada environment variable!");
 }
 
 const { Pool } = pg;
-
 const isLocal =
-  process.env.DATABASE_URL.includes("localhost") ||
-  process.env.DATABASE_URL.includes("127.0.0.1");
+  databaseUrl.includes("localhost") || databaseUrl.includes("127.0.0.1");
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: databaseUrl,
   ssl: isLocal ? false : { rejectUnauthorized: false },
+});
+
+pool.on("error", (err) => {
+  console.error("Unexpected error on idle client", err);
 });
 
 export default pool;
