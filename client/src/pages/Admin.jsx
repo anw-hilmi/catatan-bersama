@@ -6,7 +6,7 @@ import {
   FaEyeSlash,
   FaSignOutAlt,
 } from "react-icons/fa";
-import EditSandi from "../pages/EditSandi.jsx";
+import EditSandi from "../components/EditSandi.jsx";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";

@@ -1,6 +1,6 @@
 // src/App.jsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Layout from "./components/Layout";
+import Layout from "./components/SideBar.jsx";
 import Peraturan from "./pages/Peraturan.jsx";
 import TugasUtama from "./pages/TugasUtama.jsx";
 import TugasHarian from "./pages/TugasHarian.jsx";
@@ -8,7 +8,7 @@ import Acara from "./pages/Acara.jsx";
 import Doa from "./pages/Doa.jsx";
 import Admin from "./pages/Admin.jsx";
 import Informasi from "./pages/Informasi.jsx";
-import EditSandi from "./pages/EditSandi.jsx";
+import EditSandi from "./components/EditSandi.jsx";
 
 export default function App() {
   return (
