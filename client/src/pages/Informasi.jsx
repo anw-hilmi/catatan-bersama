@@ -21,22 +21,22 @@ export default function Informasi() {
 
   return (
     <div className="max-w-6xl mx-auto w-full p-4 sm:p-6">
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-card-border shadow-sm overflow-hidden">
         {/* Header (Tema Cream) */}
-        <div className="p-5 sm:p-6 border-b border-stone-100 bg-[#FAF8F5]">
-          <h2 className="text-xl sm:text-2xl font-bold text-stone-800 flex items-center gap-2">
-            <FaInfoCircle className="text-amber-600" />
+        <div className="p-5 sm:p-6 border-b border-card-border bg-card-header">
+          <h2 className="text-xl sm:text-2xl font-bold text-card-text flex items-center gap-2">
+            <FaInfoCircle className="text-secondary" />
             Pusat Informasi & Bantuan
           </h2>
-          <p className="text-sm sm:text-base text-stone-500 mt-1.5">
+          <p className="text-sm sm:text-base text-card-muted mt-1.5">
             Panduan penggunaan website dan bantuan teknis.
           </p>
         </div>
 
         <div className="p-5 sm:p-6 lg:p-8">
           {/* Bagian Video Tutorial */}
-          <h3 className="text-lg sm:text-xl font-bold text-stone-800 mb-5 flex items-center gap-2 border-l-4 border-amber-500 pl-3">
-            <FaVideo className="text-amber-500" />
+          <h3 className="text-lg sm:text-xl font-bold text-card-text mb-5 flex items-center gap-2 border-l-4 border-secondary pl-3">
+            <FaVideo className="text-secondary" />
             Video Tutorial Penggunaan
           </h3>
 
@@ -44,9 +44,9 @@ export default function Informasi() {
             {tutorials.map((video) => (
               <div
                 key={video.id}
-                className="bg-white rounded-xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-md transition-shadow group"
+                className="bg-white rounded-xl overflow-hidden border border-card-border shadow-sm hover:shadow-md transition-shadow group"
               >
-                <div className="aspect-video bg-stone-100 relative">
+                <div className="aspect-video bg-card-header relative">
                   <iframe
                     className="w-full h-full absolute top-0 left-0"
                     src={video.videoUrl}
@@ -55,7 +55,7 @@ export default function Informasi() {
                   ></iframe>
                 </div>
                 <div className="p-4 bg-white">
-                  <h4 className="font-semibold text-stone-700 text-sm group-hover:text-amber-700 transition-colors">
+                  <h4 className="font-semibold text-card-text text-sm group-hover:text-secondary transition-colors">
                     {video.title}
                   </h4>
                 </div>

@@ -48,7 +48,9 @@ export default function NotePage({ category }) {
       <SearchInput />
 
       {loading ? (
-        <p className="text-center text-gray-500 py-8">Memuat data...</p>
+        <p className="text-center text-card-muted py-8 font-medium">
+          Memuat data...
+        </p>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
           {notes.map((item) => (

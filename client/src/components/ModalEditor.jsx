@@ -51,61 +51,60 @@ export default function ModalEditor({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/40 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl border border-stone-100 space-y-5 max-h-[95vh] overflow-y-auto">
-        <div className="border-b border-stone-100 pb-3">
-          <h2 className="text-xl sm:text-2xl font-bold text-stone-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-card-text/40 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl border border-card-border space-y-5 max-h-[95vh] overflow-y-auto">
+        <div className="border-b border-card-border pb-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-card-text">
             Form Catatan
           </h2>
         </div>
 
         <div className="space-y-5">
-          {/* Penampil Pesan Error (No 3 ditaruh di sini) */}
+          {/* Penampil Pesan Error */}
           {errorMsg && (
-            <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl text-center font-medium">
+            <div className="p-3 text-sm text-danger bg-danger-light border border-danger/30 rounded-xl text-center font-medium">
               {errorMsg}
             </div>
           )}
           <div>
-            <label className="block text-sm font-semibold text-stone-700 mb-1.5">
+            <label className="block text-sm font-semibold text-card-text mb-1.5">
               Judul
             </label>
             <input
               type="text"
               value={title}
-              // Taruh onChange di sini
               onChange={(e) => {
                 setTitle(e.target.value);
                 if (errorMsg) setErrorMsg("");
               }}
               placeholder="MASUKKAN JUDUL..."
-              className="w-full px-4 py-2.5 bg-[#FAF8F5] border border-stone-200 rounded-xl text-stone-800 font-bold uppercase tracking-wide focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all outline-none"
+              className="w-full px-4 py-2.5 bg-card-header border border-card-border rounded-xl text-card-text font-bold uppercase tracking-wide focus:bg-white focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-stone-700 mb-1.5">
+            <label className="block text-sm font-semibold text-card-text mb-1.5">
               Konten
             </label>
             {/* Wrapper tambahan agar RichTextEditor menyatu dengan tema */}
-            <div className="rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-amber-500 transition-all">
+            <div className="rounded-xl overflow-hidden border border-card-border focus-within:ring-2 focus-within:ring-secondary transition-all">
               <RichTextEditor value={content} onChange={setContent} />
             </div>
           </div>
         </div>
 
-        <div className="flex justify-end gap-2 pt-4 border-t border-stone-100">
+        <div className="flex justify-end gap-2 pt-4 border-t border-card-border">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2.5 text-sm font-medium text-stone-600 hover:bg-stone-100 hover:text-stone-900 rounded-xl transition-colors focus:outline-none"
+            className="px-4 py-2.5 text-sm font-medium text-card-muted hover:bg-secondary-light hover:text-card-text rounded-xl transition-colors focus:outline-none"
           >
             Batal
           </button>
           <button
             type="button"
             onClick={handleSave}
-            className="px-5 py-2.5 text-sm font-semibold text-white bg-amber-600 hover:bg-amber-700 active:bg-amber-800 rounded-xl shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1"
+            className="px-5 py-2.5 text-sm font-semibold text-white bg-secondary hover:bg-secondary-dark active:bg-secondary-dark rounded-xl shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1"
           >
             Simpan
           </button>

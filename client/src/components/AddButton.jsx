@@ -5,7 +5,7 @@ export default function AddButton({ onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-amber-600 text-white rounded-full shadow-lg hover:bg-amber-700 active:bg-amber-800 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-amber-200"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-btn-add text-white rounded-full shadow-lg hover:bg-btn-add-dark active:bg-btn-add-dark active:scale-95 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-btn-add-light"
       title="Tambah Card"
       aria-label="Tambah Card"
     >

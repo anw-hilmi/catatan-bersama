@@ -75,15 +75,15 @@ export default function EditSandi({ token }) {
 
   return (
     <div className="max-w-6xl mx-auto w-full p-4 sm:p-6">
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-card-border shadow-sm overflow-hidden">
         {/* Header Tema Cream */}
-        <div className="p-5 sm:p-6 border-b border-stone-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[#FAF8F5]">
+        <div className="p-5 sm:p-6 border-b border-card-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card-header">
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-stone-800 flex items-center gap-2">
-              <FaUserShield className="text-amber-600" />
+            <h2 className="text-xl sm:text-2xl font-bold text-card-text flex items-center gap-2">
+              <FaUserShield className="text-secondary" />
               Kelola Data & Sandi Catatan
             </h2>
-            <p className="text-sm sm:text-base text-stone-500 mt-1">
+            <p className="text-sm sm:text-base text-card-muted mt-1">
               Manajemen kredensial untuk setiap tabel terpisah
             </p>
           </div>
@@ -91,19 +91,19 @@ export default function EditSandi({ token }) {
 
         <div className="p-5 sm:p-6 lg:p-8">
           {isLoading ? (
-            <p className="text-center text-stone-500 py-8 font-medium">
+            <p className="text-center text-card-muted py-8 font-medium">
               Memuat data...
             </p>
           ) : (
             Object.entries(groupedItems).map(([category, items]) => (
               <div key={category} className="mb-10 last:mb-0">
-                <h3 className="text-lg font-bold text-stone-800 capitalize mb-4 pl-3 border-l-4 border-amber-500">
+                <h3 className="text-lg font-bold text-card-text capitalize mb-4 pl-3 border-l-4 border-secondary">
                   Tabel: {category.replace("_", " ")}
                 </h3>
-                <div className="overflow-x-auto border border-stone-200 rounded-xl shadow-sm">
+                <div className="overflow-x-auto border border-card-border rounded-xl shadow-sm">
                   <table className="w-full text-left border-collapse whitespace-nowrap">
                     <thead>
-                      <tr className="bg-[#FAF8F5] text-xs font-semibold text-stone-500 uppercase tracking-wider border-b border-stone-200">
+                      <tr className="bg-card-header text-xs font-semibold text-card-muted uppercase tracking-wider border-b border-card-border">
                         <th className="px-6 py-4 w-16 text-center">No</th>
                         <th className="px-6 py-4">Judul</th>
                         <th className="px-6 py-4">Username</th>
@@ -111,7 +111,7 @@ export default function EditSandi({ token }) {
                         <th className="px-6 py-4 text-right">Aksi</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-stone-100 text-sm">
+                    <tbody className="divide-y divide-card-border/60 text-sm">
                       {items.map((item, index) => {
                         const uniqueId = `${category}-${item.id}`;
                         const isEditing = editingId === uniqueId;
@@ -119,13 +119,13 @@ export default function EditSandi({ token }) {
                         return (
                           <tr
                             key={uniqueId}
-                            className="hover:bg-stone-50/50 transition-colors"
+                            className="hover:bg-primary-light/40 transition-colors"
                           >
-                            <td className="px-6 py-4 font-medium text-stone-500 text-center">
+                            <td className="px-6 py-4 font-medium text-card-muted text-center">
                               {index + 1}
                             </td>
 
-                            <td className="px-6 py-4 font-medium text-stone-800">
+                            <td className="px-6 py-4 font-medium text-card-text">
                               {item.title || "-"}
                             </td>
 
@@ -140,11 +140,11 @@ export default function EditSandi({ token }) {
                                       username: e.target.value,
                                     })
                                   }
-                                  className="w-full min-w-32 px-3 py-1.5 bg-white border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
+                                  className="w-full min-w-32 px-3 py-1.5 bg-white border border-card-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
                                   placeholder="Username baru"
                                 />
                               ) : (
-                                <span className="font-semibold text-stone-600">
+                                <span className="font-semibold text-card-text">
                                   {item.username}
                                 </span>
                               )}
@@ -161,11 +161,11 @@ export default function EditSandi({ token }) {
                                       password: e.target.value,
                                     })
                                   }
-                                  className="w-full min-w-32 px-3 py-1.5 bg-white border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
+                                  className="w-full min-w-32 px-3 py-1.5 bg-white border border-card-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
                                   placeholder="Password baru"
                                 />
                               ) : (
-                                <span className="font-mono text-stone-700 bg-stone-100 px-2.5 py-1.5 rounded-md text-sm border border-stone-200/60">
+                                <span className="font-mono text-card-text bg-card-header px-2.5 py-1.5 rounded-md text-sm border border-card-border">
                                   {item.password}
                                 </span>
                               )}
@@ -177,15 +177,14 @@ export default function EditSandi({ token }) {
                                   <button
                                     type="button"
                                     onClick={() => setEditingId(null)}
-                                    className="p-2 text-stone-500 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors focus:outline-none"
+                                    className="p-2 text-card-muted bg-secondary-light hover:bg-card-border rounded-lg transition-colors focus:outline-none"
                                   >
                                     <FaTimes className="w-4 h-4" />
                                   </button>
-                                  {/* Tombol save menggunakan Emerald agar memberi kesan sukses menyimpan */}
                                   <button
                                     type="button"
                                     onClick={() => handleSave(category, item)}
-                                    className="p-2 text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-1"
+                                    className="p-2 text-white bg-success hover:bg-success-dark rounded-lg transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-success-light focus:ring-offset-1"
                                   >
                                     <FaSave className="w-4 h-4" />
                                   </button>
@@ -197,7 +196,7 @@ export default function EditSandi({ token }) {
                                     onClick={() =>
                                       handleEditClick(category, item)
                                     }
-                                    className="p-2 text-amber-600 bg-amber-50 hover:bg-amber-100 hover:text-amber-700 rounded-lg transition-all focus:outline-none"
+                                    className="p-2 text-secondary bg-secondary-light hover:bg-primary-light hover:text-secondary-dark rounded-lg transition-all focus:outline-none"
                                   >
                                     <FaEdit className="w-4 h-4" />
                                   </button>
@@ -211,7 +210,7 @@ export default function EditSandi({ token }) {
                         <tr>
                           <td
                             colSpan="5"
-                            className="px-6 py-8 text-center text-stone-500 font-medium"
+                            className="px-6 py-8 text-center text-card-muted font-medium"
                           >
                             Belum ada data.
                           </td>

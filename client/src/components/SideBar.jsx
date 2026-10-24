@@ -23,7 +23,7 @@ const NAV_ITEMS = [
   { title: "Informasi", icon: FaInfoCircle, href: "/informasi" },
 ];
 
-export default function Layout() {
+export default function SideBar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
 
@@ -31,14 +31,14 @@ export default function Layout() {
   const activeTab = activeItem ? activeItem.title : "Peraturan";
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-stone-800">
-      <header className="fixed top-0 z-50 w-full bg-white border-b border-stone-200 shadow-sm">
+    <div className="min-h-screen bg-card-header text-card-text">
+      <header className="fixed top-0 z-50 w-full bg-white border-b border-card-border shadow-sm">
         <div className="px-3 py-3 lg:px-5 flex items-center justify-between">
           <div className="flex items-center">
             <button
               onClick={() => setIsSidebarOpen((prev) => !prev)}
               type="button"
-              className="sm:hidden text-stone-500 hover:text-stone-800 hover:bg-stone-100 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-200 mr-2 transition-colors"
+              className="sm:hidden text-card-muted hover:text-card-text hover:bg-secondary-light p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-card-border mr-2 transition-colors"
               aria-label="Toggle sidebar"
               aria-expanded={isSidebarOpen}
             >
@@ -48,12 +48,12 @@ export default function Layout() {
                 <FaBars className="w-6 h-6" />
               )}
             </button>
-            <h1 className="text-lg font-bold text-stone-800 tracking-wide">
+            <h1 className="text-lg font-bold text-card-text tracking-wide">
               {activeTab}
             </h1>
           </div>
           <img
-            className="w-8 h-8 rounded-full border border-stone-200 shadow-sm"
+            className="w-8 h-8 rounded-full border border-card-border shadow-sm"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXmYthElFqHmpxT7RhCBFTlvc_jZennHVMm1BmkfWxWw&s"
             alt="User avatar"
           />
@@ -63,13 +63,13 @@ export default function Layout() {
       {isSidebarOpen && (
         <div
           onClick={() => setIsSidebarOpen(false)}
-          className="fixed inset-0 z-30 bg-stone-900/40 backdrop-blur-sm sm:hidden transition-opacity"
+          className="fixed inset-0 z-30 bg-card-text/40 backdrop-blur-sm sm:hidden transition-opacity"
           aria-hidden="true"
         />
       )}
 
       <aside
-        className={`fixed top-0 left-0 z-40 w-64 h-full pt-16 transition-transform bg-white border-r border-stone-200 shadow-[4px_0_24px_rgba(0,0,0,0.02)] sm:translate-x-0 ${
+        className={`fixed top-0 left-0 z-40 w-64 h-full pt-16 transition-transform bg-white border-r border-card-border shadow-[4px_0_24px_rgba(0,0,0,0.02)] sm:translate-x-0 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-label="Sidebar"
@@ -86,8 +86,8 @@ export default function Layout() {
                     className={({ isActive }) =>
                       `flex items-center p-2.5 rounded-xl transition-all duration-200 group ${
                         isActive
-                          ? "bg-amber-50 text-amber-800 font-semibold shadow-sm border border-amber-100/50"
-                          : "text-stone-600 hover:bg-stone-50 hover:text-amber-700"
+                          ? "bg-secondary-light text-secondary-dark font-semibold shadow-sm border border-card-border"
+                          : "text-card-muted hover:bg-primary-light hover:text-secondary"
                       }`
                     }
                   >
@@ -96,8 +96,8 @@ export default function Layout() {
                         <IconComponent
                           className={`w-5 h-5 transition-colors duration-200 ${
                             isActive
-                              ? "text-amber-600"
-                              : "text-stone-400 group-hover:text-amber-500"
+                              ? "text-secondary"
+                              : "text-card-muted group-hover:text-secondary"
                           }`}
                         />
                         <span className="ms-3">{item.title}</span>

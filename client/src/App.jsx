@@ -1,6 +1,6 @@
 // src/App.jsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Layout from "./components/SideBar.jsx";
+import SideBar from "./components/SideBar.jsx";
 import Peraturan from "./pages/Peraturan.jsx";
 import TugasUtama from "./pages/TugasUtama.jsx";
 import TugasHarian from "./pages/TugasHarian.jsx";
@@ -14,7 +14,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<SideBar />}>
           <Route index element={<Navigate to="/peraturan" replace />} />
           <Route path="peraturan" element={<Peraturan />} />
           <Route path="tugas-utama" element={<TugasUtama />} />

@@ -1,6 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tailwindcss";
 
-input::-ms-reveal,
-input::-ms-clear {
-  display: none;
+@theme {
+  --color-primary: #e6dac8;
+  --color-primary-light: #f5efe6;
+  --color-primary-dark: #b89868;
+
+  --color-secondary: #2c1e16;
+  --color-secondary-light: #ece3d5;
+  --color-secondary-dark: #1a110b;
+
+  /* Tombol + (Tambah) */
+  --color-btn-add: #a47c38;
+  --color-btn-add-light: #f7f3eb;
+  --color-btn-add-dark: #7d5a1e;
+
+  /* Tombol Unduh */
+  --color-btn-download: #3d2b1f;
+  --color-btn-download-light: #eae3d2;
+  --color-btn-download-dark: #231810;
+
+  /* Card & UI Colors */
+  --color-card-border: #d9cfc1;
+  --color-card-header: #eae3d2;
+  --color-card-text: #231810;
+  --color-card-muted: #4a3e3d;
+
+  /* Status Colors */
+  --color-success: #6e8b5e;
+  --color-success-light: #f0f4ee;
+  --color-success-dark: #4d6440;
+  --color-danger: #a94442;
+  --color-danger-light: #f9ebeb;
+
+  --carousel-gradient: linear-gradient(
+    90deg,
+    rgba(164, 124, 56, 1) 0%,
+    rgba(61, 43, 31, 1) 50%,
+    rgba(234, 227, 210, 1) 100%
+  );
+}
+
+:root {
+  --border: #d9cfc1;
+  --bg: #efeae1;
+  --text: #231810;
+  --muted: #7a6b5d;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }

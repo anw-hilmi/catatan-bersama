@@ -20,9 +20,9 @@ export default function CardItem({
   }, [content]);
 
   return (
-    <div className="flex flex-col bg-white border border-stone-200 shadow-sm hover:shadow-md rounded-2xl w-full h-full transition-all duration-300 group overflow-hidden">
-      <div className="bg-[#FAF8F5] border-b border-stone-200 py-3 px-5 flex items-center justify-between">
-        <p className="text-xs sm:text-sm font-semibold text-stone-700 uppercase tracking-wide">
+    <div className="flex flex-col bg-white border border-card-border shadow-sm hover:shadow-md rounded-2xl w-full h-full transition-all duration-300 group overflow-hidden">
+      <div className="bg-card-header border-b border-card-border py-3 px-5 flex items-center justify-between">
+        <p className="text-xs sm:text-sm font-semibold text-card-text uppercase tracking-wide">
           {title}
         </p>
       </div>
@@ -31,7 +31,7 @@ export default function CardItem({
         <div className="relative flex-grow">
           <div
             ref={contentRef}
-            className={`text-sm sm:text-base text-stone-600 leading-relaxed break-words transition-all duration-300 
+            className={`text-sm sm:text-base text-card-muted leading-relaxed break-words transition-all duration-300 
 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-2 
 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-2 
 [&_li]:mb-1 
@@ -55,7 +55,7 @@ ${!isExpanded ? "line-clamp-3" : ""}`}
               <button
                 type="button"
                 onClick={onToggleExpand}
-                className="text-xs sm:text-sm font-medium text-amber-700 hover:text-amber-600 active:text-amber-800 transition-colors focus:outline-none"
+                className="text-xs sm:text-sm font-medium text-secondary hover:text-secondary-dark active:text-secondary-dark transition-colors focus:outline-none"
               >
                 {isExpanded ? "Sembunyikan" : "Lihat selengkapnya"}
               </button>
@@ -66,7 +66,7 @@ ${!isExpanded ? "line-clamp-3" : ""}`}
             <button
               type="button"
               onClick={onEdit}
-              className="p-2.5 text-stone-400 hover:text-amber-600 hover:bg-stone-50 active:scale-95 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-stone-200 bg-white"
+              className="p-2.5 text-card-muted hover:text-secondary hover:bg-secondary-light active:scale-95 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-card-border bg-white"
               title="Edit"
             >
               <FaEdit className="w-4 h-4" />
@@ -74,7 +74,7 @@ ${!isExpanded ? "line-clamp-3" : ""}`}
             <button
               type="button"
               onClick={onDelete}
-              className="p-2.5 text-stone-400 hover:text-red-500 hover:bg-red-50 active:scale-95 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-200 bg-white"
+              className="p-2.5 text-card-muted hover:text-danger hover:bg-danger-light active:scale-95 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-danger-light bg-white"
               title="Hapus"
             >
               <FaTrashAlt className="w-4 h-4" />
