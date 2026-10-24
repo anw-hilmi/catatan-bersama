@@ -32,15 +32,15 @@ export default function CardItem({
           <div
             ref={contentRef}
             className={`text-sm sm:text-base text-stone-600 leading-relaxed break-words transition-all duration-300 
-  [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-2 
-  [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-2 
-  [&_li]:mb-1 
-  [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-3 
-  [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-2 
-  [&_p]:mb-2
-  [&_strong]:font-bold [&_em]:italic [&_u]:underline [&_s]:line-through
-  [&_.ql-align-center]:text-center [&_.ql-align-right]:text-right [&_.ql-align-justify]:text-justify
-  ${!isExpanded ? "line-clamp-3" : ""}`}
+[&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-2 
+[&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-2 
+[&_li]:mb-1 
+[&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-3 
+[&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-2 
+[&_p]:mb-0
+[&_strong]:font-bold [&_em]:italic [&_u]:underline [&_s]:line-through
+[&_.ql-align-center]:text-center [&_.ql-align-right]:text-right [&_.ql-align-justify]:text-justify
+${!isExpanded ? "line-clamp-3" : ""}`}
             dangerouslySetInnerHTML={{ __html: content }}
           />
 

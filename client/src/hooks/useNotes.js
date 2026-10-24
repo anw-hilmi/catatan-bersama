@@ -109,7 +109,7 @@ export const useNotes = (category) => {
           body { font-family: sans-serif; color: #57534e; font-size: 11pt; }
           h1 { font-size: 16pt; font-weight: bold; margin-bottom: 10px; }
           h2 { font-size: 14pt; font-weight: bold; margin-bottom: 10px; }
-          p { margin: 0 0 10px 0; }
+          p { margin: 0; }
           ul { margin: 0 0 10px 20px; list-style-type: disc; }
           ol { margin: 0 0 10px 20px; list-style-type: decimal; }
           li { margin-bottom: 5px; }

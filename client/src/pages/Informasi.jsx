@@ -62,27 +62,6 @@ export default function Informasi() {
               </div>
             ))}
           </div>
-
-          {/* Bagian Kontak Bantuan (Aksen Emerald/Hijau Alam) */}
-          <div className="bg-emerald-50/50 rounded-2xl p-6 sm:p-8 border border-emerald-100 text-center shadow-sm">
-            <h3 className="text-lg sm:text-xl font-bold text-emerald-800 mb-2">
-              Mengalami Masalah atau Kendala?
-            </h3>
-            <p className="text-sm sm:text-base text-emerald-700/80 mb-6 max-w-2xl mx-auto">
-              Jika ada masalah mengenai website ini, menemukan <i>bug</i>, atau
-              butuh bantuan lebih lanjut, silakan menghubungi nomor WhatsApp di
-              bawah ini.
-            </p>
-            <a
-              href="https://wa.me/6281232787293"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-semibold py-3 px-6 sm:px-8 rounded-full transition-all duration-200 hover:scale-105 active:scale-95 shadow-md text-sm sm:text-base focus:outline-none focus:ring-4 focus:ring-emerald-200"
-            >
-              <FaWhatsapp className="w-5 h-5 sm:w-6 sm:h-6" />
-              Hubungi Admin via WhatsApp
-            </a>
-          </div>
         </div>
       </div>
     </div>
