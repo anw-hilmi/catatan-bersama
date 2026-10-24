@@ -1,4 +1,4 @@
-import { FaInfoCircle, FaVideo, FaWhatsapp } from "react-icons/fa";
+import { FaInfoCircle, FaVideo } from "react-icons/fa";
 
 export default function Informasi() {
   const tutorials = [
